@@ -1,0 +1,10 @@
+name: steamcardwalldl
+version: "0.1.0"
+author: Tidest <michaelpulliam1@gmail.com>
+about: Downloads Steam trading card wallpapers
+args:
+  - appid:
+      index: 1
+      help: appid of wallpapers to download
+      required: true
+      value_name: APPID
