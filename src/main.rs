@@ -1,11 +1,7 @@
-#[macro_use]
-extern crate clap;
-
 extern crate reqwest;
 extern crate select;
 extern crate url;
 
-use clap::App;
 use select::document::Document;
 use select::predicate::{Class, Name};
 use url::Url;
@@ -13,12 +9,10 @@ use std::io::Read;
 use std::io::copy;
 use std::fs::OpenOptions;
 use std::path::PathBuf;
+use std::env;
 
 fn main() {
-    let yaml = load_yaml!("cli.yml");
-    let matches = App::from_yaml(yaml).get_matches();
-
-    let app_id = matches.value_of("appid").unwrap(); // Concat the AppId with the baseurl
+    let app_id = env::args().last().unwrap(); // Concat the AppId with the baseurl
     let base_page = "https://www.steamcardexchange.net/index.php?gamepage-appid-";
     let page = format!("{}{}", base_page, app_id);
     let mut response = reqwest::get(page.as_str()).unwrap();
