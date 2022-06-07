@@ -15,7 +15,7 @@ fn main() {
     let app_id = env::args().last().unwrap(); // Concat the AppId with the baseurl
     let base_page = "https://www.steamcardexchange.net/index.php?gamepage-appid-";
     let page = format!("{}{}", base_page, app_id);
-    let mut response = reqwest::get(page.as_str()).unwrap();
+    let mut response = reqwest::blocking::get(page.as_str()).unwrap();
     let mut body = String::new();
     response.read_to_string(&mut body).unwrap();
     let dom = Document::from(body.as_str());
@@ -42,7 +42,7 @@ fn main() {
             Ok(f) => f,
         };
 
-        let mut image = reqwest::get(link).unwrap();
+        let mut image = reqwest::blocking::get(link).unwrap();
         copy(&mut image, &mut file).unwrap();
     } 
 }
